@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="altitude" content="456.2050170898438"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-09-15 17:01:59 +0000"/><meta name="latitude" content="34.15428042794609"/><meta name="longitude" content="108.9016378165113"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-10-15 18:44:54 +0000"/><title>算法</title></head><body>
+
+	<div><b>大致总结，一般情况下面试官更希望看到用数据结构去解决一个算法题，比如逆序输出用for从后向前遍历的得分肯定会比用栈的得分低。二叉树深度遍历用栈很容易解决，广度遍历用队列很容易解决。</b></div><div><b>考察算法的目的有两个，一是基础的掌握，如快排这些硬指标。二是个人解决问题分析问题得能力，一般会与实际结合出一些类似于智力题的题，千万不要说不会，一般情况下都能和堆栈，链表，树，图结合起来解决。哪怕自己想法是错的也要说出来。</b></div><div><b><br/></b></div><div><b>1.二叉查找树（二叉查找）</b></div>
+
+	<div><i><span style="font-family: Arial;">简介</span></i></div>
+
+	<div><span style="font-family: Arial;">     它或者是一棵空树；或者是具有下列性质的二叉树： （1）若左子树不空，则左子树上所有结点的值均小于它的根结点的值； （2）若右子树不空，则右子树上所有结点的值均大于它的根结点的值； （3）左、右子树也分别为二叉排序树</span></div>
+
+	<div><span style="font-family: Arial;">/*************************************************************************</span></div>
+
+	<div><span style="font-family: Arial;">  这是一个二叉查找树，实现了以下操作：插入结点、构造二叉树、删除结点、查找、</span></div>
+
+	<div><span style="font-family: Arial;">  查找最大值、查找最小值、查找指定结点的前驱和后继。上述所有操作时间复杂度</span></div>
+
+	<div><span style="font-family: Arial;">  均为o(h),其中h是树的高度</span></div>
+
+	<div><span style="font-family: Arial;">  注释很详细，具体内容就看代码吧</span></div>
+
+	<div><span style="font-family: Arial;">*************************************************************************/</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">#include&lt;stdio.h&gt;</span></div>
+
+	<div><span style="font-family: Arial;">#include&lt;stdlib.h&gt;</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//二叉查找树结点描述</span></div>
+
+	<div><span style="font-family: Arial;">typedef int KeyType;</span></div>
+
+	<div><span style="font-family: Arial;">typedef struct Node</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    KeyType key;          //关键字</span></div>
+
+	<div><span style="font-family: Arial;">    struct Node * left;   //左孩子指针</span></div>
+
+	<div><span style="font-family: Arial;">    struct Node * right;  //右孩子指针</span></div>
+
+	<div><span style="font-family: Arial;">    struct Node * parent; //指向父节点指针</span></div>
+
+	<div><span style="font-family: Arial;">}Node,*PNode;</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//往二叉查找树中插入结点</span></div>
+
+	<div><span style="font-family: Arial;">//插入的话，可能要改变根结点的地址，所以传的是二级指针</span></div>
+
+	<div><span style="font-family: Arial;">void inseart(PNode * root,KeyType key)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    //初始化插入结点</span></div>
+
+	<div><span style="font-family: Arial;">    PNode p=(PNode)malloc(sizeof(Node));</span></div>
+
+	<div><span style="font-family: Arial;">    p-&gt;key=key;</span></div>
+
+	<div><span style="font-family: Arial;">    p-&gt;left=p-&gt;right=p-&gt;parent=NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    //空树时，直接作为根结点</span></div>
+
+	<div><span style="font-family: Arial;">    if((*root)==NULL){</span></div>
+
+	<div><span style="font-family: Arial;">        *root=p;</span></div>
+
+	<div><span style="font-family: Arial;">        return;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    //插入到当前结点（*root）的左孩子</span></div>
+
+	<div><span style="font-family: Arial;">    if((*root)-&gt;left == NULL &amp;&amp; (*root)-&gt;key &gt; key){</span></div>
+
+	<div><span style="font-family: Arial;">        p-&gt;parent=(*root);</span></div>
+
+	<div><span style="font-family: Arial;">        (*root)-&gt;left=p;</span></div>
+
+	<div><span style="font-family: Arial;">        return;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    //插入到当前结点（*root）的右孩子</span></div>
+
+	<div><span style="font-family: Arial;">    if((*root)-&gt;right == NULL &amp;&amp; (*root)-&gt;key &lt; key){</span></div>
+
+	<div><span style="font-family: Arial;">        p-&gt;parent=(*root);</span></div>
+
+	<div><span style="font-family: Arial;">        (*root)-&gt;right=p;</span></div>
+
+	<div><span style="font-family: Arial;">        return;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    if((*root)-&gt;key &gt; key)</span></div>
+
+	<div><span style="font-family: Arial;">        inseart(&amp;(*root)-&gt;left,key);</span></div>
+
+	<div><span style="font-family: Arial;">    else if((*root)-&gt;key &lt; key)</span></div>
+
+	<div><span style="font-family: Arial;">        inseart(&amp;(*root)-&gt;right,key);</span></div>
+
+	<div><span style="font-family: Arial;">    else</span></div>
+
+	<div><span style="font-family: Arial;">        return;</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//查找元素,找到返回关键字的结点指针，没找到返回NULL</span></div>
+
+	<div><span style="font-family: Arial;">PNode search(PNode root,KeyType key)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    if(root == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    if(key &gt; root-&gt;key) //查找右子树</span></div>
+
+	<div><span style="font-family: Arial;">        return search(root-&gt;right,key);</span></div>
+
+	<div><span style="font-family: Arial;">    else if(key &lt; root-&gt;key) //查找左子树</span></div>
+
+	<div><span style="font-family: Arial;">        return search(root-&gt;left,key);</span></div>
+
+	<div><span style="font-family: Arial;">    else</span></div>
+
+	<div><span style="font-family: Arial;">        return root;</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//查找最小关键字,空树时返回NULL</span></div>
+
+	<div><span style="font-family: Arial;">PNode searchMin(PNode root)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    if(root == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    if(root-&gt;left == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return root;</span></div>
+
+	<div><span style="font-family: Arial;">    else  //一直往左孩子找，直到没有左孩子的结点</span></div>
+
+	<div><span style="font-family: Arial;">        return searchMin(root-&gt;left);</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//查找最大关键字,空树时返回NULL</span></div>
+
+	<div><span style="font-family: Arial;">PNode searchMax(PNode root)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    if(root == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    if(root-&gt;right == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return root;</span></div>
+
+	<div><span style="font-family: Arial;">    else  //一直往右孩子找，直到没有右孩子的结点</span></div>
+
+	<div><span style="font-family: Arial;">        return searchMax(root-&gt;right);</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//查找某个结点的前驱</span></div>
+
+	<div><span style="font-family: Arial;">PNode searchPredecessor(PNode p)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    //空树</span></div>
+
+	<div><span style="font-family: Arial;">    if(p==NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return p;</span></div>
+
+	<div><span style="font-family: Arial;">    //有左子树、左子树中最大的那个</span></div>
+
+	<div><span style="font-family: Arial;">    if(p-&gt;left)</span></div>
+
+	<div><span style="font-family: Arial;">        return searchMax(p-&gt;left);</span></div>
+
+	<div><span style="font-family: Arial;">    //无左子树,查找某个结点的右子树遍历完了</span></div>
+
+	<div><span style="font-family: Arial;">    else{</span></div>
+
+	<div><span style="font-family: Arial;">        if(p-&gt;parent == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">            return NULL;</span></div>
+
+	<div><span style="font-family: Arial;">        //向上寻找前驱</span></div>
+
+	<div><span style="font-family: Arial;">        while(p){</span></div>
+
+	<div><span style="font-family: Arial;">            if(p-&gt;parent-&gt;right == p)</span></div>
+
+	<div><span style="font-family: Arial;">                break;</span></div>
+
+	<div><span style="font-family: Arial;">            p=p-&gt;parent;</span></div>
+
+	<div><span style="font-family: Arial;">        }</span></div>
+
+	<div><span style="font-family: Arial;">        return p-&gt;parent;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//查找某个结点的后继</span></div>
+
+	<div><span style="font-family: Arial;">PNode searchSuccessor(PNode p)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    //空树</span></div>
+
+	<div><span style="font-family: Arial;">    if(p==NULL)</span></div>
+
+	<div><span style="font-family: Arial;">        return p;</span></div>
+
+	<div><span style="font-family: Arial;">    //有右子树、右子树中最小的那个</span></div>
+
+	<div><span style="font-family: Arial;">    if(p-&gt;right)</span></div>
+
+	<div><span style="font-family: Arial;">        return searchMin(p-&gt;right);</span></div>
+
+	<div><span style="font-family: Arial;">    //无右子树,查找某个结点的左子树遍历完了</span></div>
+
+	<div><span style="font-family: Arial;">    else{</span></div>
+
+	<div><span style="font-family: Arial;">        if(p-&gt;parent == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">            return NULL;</span></div>
+
+	<div><span style="font-family: Arial;">        //向上寻找后继</span></div>
+
+	<div><span style="font-family: Arial;">        while(p){</span></div>
+
+	<div><span style="font-family: Arial;">            if(p-&gt;parent-&gt;left == p)</span></div>
+
+	<div><span style="font-family: Arial;">                break;</span></div>
+
+	<div><span style="font-family: Arial;">            p=p-&gt;parent;</span></div>
+
+	<div><span style="font-family: Arial;">        }</span></div>
+
+	<div><span style="font-family: Arial;">        return p-&gt;parent;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//根据关键字删除某个结点,删除成功返回1,否则返回0</span></div>
+
+	<div><span style="font-family: Arial;">//如果把根结点删掉，那么要改变根结点的地址，所以传二级指针</span></div>
+
+	<div><span style="font-family: Arial;">int deleteNode(PNode* root,KeyType key)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    PNode q;</span></div>
+
+	<div><span style="font-family: Arial;">    //查找到要删除的结点</span></div>
+
+	<div><span style="font-family: Arial;">    PNode p=search(*root,key);</span></div>
+
+	<div><span style="font-family: Arial;">    KeyType temp;    //暂存后继结点的值</span></div>
+
+	<div><span style="font-family: Arial;">    //没查到此关键字</span></div>
+
+	<div><span style="font-family: Arial;">    if(!p)</span></div>
+
+	<div><span style="font-family: Arial;">        return 0;</span></div>
+
+	<div><span style="font-family: Arial;">    //1.被删结点是叶子结点，直接删除</span></div>
+
+	<div><span style="font-family: Arial;">    if(p-&gt;left == NULL &amp;&amp; p-&gt;right == NULL){</span></div>
+
+	<div><span style="font-family: Arial;">        //只有一个元素，删完之后变成一颗空树</span></div>
+
+	<div><span style="font-family: Arial;">        if(p-&gt;parent == NULL){</span></div>
+
+	<div><span style="font-family: Arial;">            free(p);</span></div>
+
+	<div><span style="font-family: Arial;">            (*root)=NULL;</span></div>
+
+	<div><span style="font-family: Arial;">        }else{</span></div>
+
+	<div><span style="font-family: Arial;">            //删除的结点是父节点的左孩子</span></div>
+
+	<div><span style="font-family: Arial;">            if(p-&gt;parent-&gt;left == p)</span></div>
+
+	<div><span style="font-family: Arial;">                 p-&gt;parent-&gt;left=NULL;</span></div>
+
+	<div><span style="font-family: Arial;">            else  //删除的结点是父节点的右孩子</span></div>
+
+	<div><span style="font-family: Arial;">                 p-&gt;parent-&gt;right=NULL;</span></div>
+
+	<div><span style="font-family: Arial;">            free(p);</span></div>
+
+	<div><span style="font-family: Arial;">        }</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">    //2.被删结点只有左子树</span></div>
+
+	<div><span style="font-family: Arial;">    else if(p-&gt;left &amp;&amp; !(p-&gt;right)){</span></div>
+
+	<div><span style="font-family: Arial;">        p-&gt;left-&gt;parent=p-&gt;parent;</span></div>
+
+	<div><span style="font-family: Arial;">        //如果删除是父结点，要改变父节点指针</span></div>
+
+	<div><span style="font-family: Arial;">        if(p-&gt;parent == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">            *root=p-&gt;left;</span></div>
+
+	<div><span style="font-family: Arial;">        //删除的结点是父节点的左孩子</span></div>
+
+	<div><span style="font-family: Arial;">        else if(p-&gt;parent-&gt;left == p)</span></div>
+
+	<div><span style="font-family: Arial;">            p-&gt;parent-&gt;left=p-&gt;left;</span></div>
+
+	<div><span style="font-family: Arial;">        else //删除的结点是父节点的右孩子</span></div>
+
+	<div><span style="font-family: Arial;">            p-&gt;parent-&gt;right=p-&gt;left;</span></div>
+
+	<div><span style="font-family: Arial;">        free(p);</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    //3.被删结点只有右孩子</span></div>
+
+	<div><span style="font-family: Arial;">    else if(p-&gt;right &amp;&amp; !(p-&gt;left)){</span></div>
+
+	<div><span style="font-family: Arial;">        p-&gt;right-&gt;parent=p-&gt;parent;</span></div>
+
+	<div><span style="font-family: Arial;">        //如果删除是父结点，要改变父节点指针</span></div>
+
+	<div><span style="font-family: Arial;">        if(p-&gt;parent == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">            *root=p-&gt;right;</span></div>
+
+	<div><span style="font-family: Arial;">        //删除的结点是父节点的左孩子</span></div>
+
+	<div><span style="font-family: Arial;">        else if(p-&gt;parent-&gt;left == p)</span></div>
+
+	<div><span style="font-family: Arial;">            p-&gt;parent-&gt;left=p-&gt;right;</span></div>
+
+	<div><span style="font-family: Arial;">        else //删除的结点是父节点的右孩子</span></div>
+
+	<div><span style="font-family: Arial;">            p-&gt;parent-&gt;right=p-&gt;right;</span></div>
+
+	<div><span style="font-family: Arial;">        free(p);</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    //4.被删除的结点既有左孩子，又有右孩子</span></div>
+
+	<div><span style="font-family: Arial;">    //该结点的后继结点肯定无左子树(参考上面查找后继结点函数)</span></div>
+
+	<div><span style="font-family: Arial;">    //删掉后继结点,后继结点的值代替该结点</span></div>
+
+	<div><span style="font-family: Arial;">    else{</span></div>
+
+	<div><span style="font-family: Arial;">        //找到要删除结点的后继</span></div>
+
+	<div><span style="font-family: Arial;">        q=searchSuccessor(p);</span></div>
+
+	<div><span style="font-family: Arial;">        temp=q-&gt;key;</span></div>
+
+	<div><span style="font-family: Arial;">        //删除后继结点</span></div>
+
+	<div><span style="font-family: Arial;">        deleteNode(root,q-&gt;key);</span></div>
+
+	<div><span style="font-family: Arial;">        p-&gt;key=temp;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    return 1;</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">//创建一棵二叉查找树</span></div>
+
+	<div><span style="font-family: Arial;">void create(PNode* root,KeyType *keyArray,int length)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    int i;</span></div>
+
+	<div><span style="font-family: Arial;">    //逐个结点插入二叉树中</span></div>
+
+	<div><span style="font-family: Arial;">    for(i=0;i&lt;length;i++)</span></div>
+
+	<div><span style="font-family: Arial;">        inseart(root,keyArray[i]);</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">int main(void)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    int i;</span></div>
+
+	<div><span style="font-family: Arial;">    PNode root=NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    KeyType nodeArray[11]={15,6,18,3,7,17,20,2,4,13,9};</span></div>
+
+	<div><span style="font-family: Arial;">    create(&amp;root,nodeArray,11);</span></div>
+
+	<div><span style="font-family: Arial;">    for(i=0;i&lt;2;i++)</span></div>
+
+	<div><span style="font-family: Arial;">        deleteNode(&amp;root,nodeArray[i]);</span></div>
+
+	<div><span style="font-family: Arial;">    printf("%d\n",searchPredecessor(root)-&gt;key);</span></div>
+
+	<div><span style="font-family: Arial;">    printf("%d\n",searchSuccessor(root)-&gt;key);</span></div>
+
+	<div><span style="font-family: Arial;">    printf("%d\n",searchMin(root)-&gt;key);</span></div>
+
+	<div><span style="font-family: Arial;">    printf("%d\n",searchMax(root)-&gt;key);</span></div>
+
+	<div><span style="font-family: Arial;">    printf("%d\n",search(root,13)-&gt;key);</span></div>
+
+	<div><span style="font-family: Arial;">    return 0;</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><b><span style="font-family: Arial;">2.找出str2在str1中第一次出现的位置</span></b></div>
+
+	<div><span style="font-family: Arial;">/* 查找str2在str1中的位置,不存在时返回-1 */</span></div>
+
+	<div><span style="font-family: Arial;">int SubStrPosition(char *str1,char *str2)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">        int istr1Len = 0;</span></div>
+
+	<div><span style="font-family: Arial;">        int istr2Len = 0;</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">        int i = 0;</span></div>
+
+	<div><span style="font-family: Arial;">        int j = 0;</span></div>
+
+	<div><span style="font-family: Arial;">        int iPosition = -1;</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">        istr1Len = strlen(str1);</span></div>
+
+	<div><span style="font-family: Arial;">        istr2Len = strlen(str2);</span></div>
+
+	<div><span style="font-family: Arial;">        if (istr2Len &gt; istr1Len)</span></div>
+
+	<div><span style="font-family: Arial;">        {</span></div>
+
+	<div><span style="font-family: Arial;">                printf("Str2 cann't be the substring of str1.\n");</span></div>
+
+	<div><span style="font-family: Arial;">                return -1;</span></div>
+
+	<div><span style="font-family: Arial;">        }</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">        /* 开始寻找str2在str1中的位置，不区分大小写 */</span></div>
+
+	<div><span style="font-family: Arial;">        for (i; i &lt; istr1Len; i++)</span></div>
+
+	<div><span style="font-family: Arial;">        {</span></div>
+
+	<div><span style="font-family: Arial;">                for (j; j &lt; istr2Len; j++)</span></div>
+
+	<div><span style="font-family: Arial;">                {</span></div>
+
+	<div><span style="font-family: Arial;">                        if (!((str1[i+j] == str2[j]) || (str1[i+j] == str2[j] + 32) </span></div>
+
+	<div><span style="font-family: Arial;">                                || (str1[i+j] == str2[j] - 32)))</span></div>
+
+	<div><span style="font-family: Arial;">                                break;</span></div>
+
+	<div><span style="font-family: Arial;">                }</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">                if (j == istr2Len)</span></div>
+
+	<div><span style="font-family: Arial;">                {</span></div>
+
+	<div><span style="font-family: Arial;">                        iPosition = i+1;</span></div>
+
+	<div><span style="font-family: Arial;">                        break;</span></div>
+
+	<div><span style="font-family: Arial;">                }</span></div>
+
+	<div><span style="font-family: Arial;">        }    </span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">        return iPosition;</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><b><span style="font-family: Arial;">3.反转单链表</span></b></div>
+
+	<div><span style="font-family: Arial;">LinkedList ReverseSinglyLinkedList(LinkedList list)</span></div>
+
+	<div><span style="font-family: Arial;">{</span></div>
+
+	<div><span style="font-family: Arial;">    LNode   *tmp = NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    LNode   *p = NULL;</span></div>
+
+	<div><span style="font-family: Arial;"><br/></span></div>
+
+	<div><span style="font-family: Arial;">    if (list == NULL)</span></div>
+
+	<div><span style="font-family: Arial;">    {</span></div>
+
+	<div><span style="font-family: Arial;">        return NULL;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    tmp = list-&gt;next;</span></div>
+
+	<div><span style="font-family: Arial;">    while (tmp-&gt;next != NULL)</span></div>
+
+	<div><span style="font-family: Arial;">    {</span></div>
+
+	<div><span style="font-family: Arial;">        p = tmp-&gt;next;</span></div>
+
+	<div><span style="font-family: Arial;">        tmp-&gt;next = p-&gt;next;</span></div>
+
+	<div><span style="font-family: Arial;">        p-&gt;next = list-&gt;next;</span></div>
+
+	<div><span style="font-family: Arial;">        list-&gt;next = p;</span></div>
+
+	<div><span style="font-family: Arial;">    }</span></div>
+
+	<div><span style="font-family: Arial;">    return list;</span></div>
+
+	<div><span style="font-family: Arial;">}</span></div>
+
+
+
+</body></html>

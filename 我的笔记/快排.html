@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="keywords" content="面试, 算法"/><meta name="altitude" content="440.9658508300781"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-04-20 08:00:54 +0000"/><meta name="latitude" content="34.15504701383828"/><meta name="longitude" content="108.8941632275795"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-04-21 02:02:29 +0000"/><title>快排</title></head><body>
+
+	<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><pre style="border: 1px solid rgb(255, 255, 204); background-color: rgb(255, 255, 252); font-family: 'Courier New'; overflow: auto; color: rgb(0, 0, 0); font-size: 16px; line-height: 24px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961); -webkit-text-size-adjust: none;">//快速排序
+void quick_sort(int s[], int l, int r)
+{
+    if (l &lt; r)
+    {
+		//Swap(s[l], s[(l + r) / 2]); //将中间的这个数和第一个数交换 参见注1
+        int i = l, j = r, x = s[l];
+        while (i &lt; j)
+        {
+            while(i &lt; j &amp;&amp; s[j] &gt;= x) // 从右向左找第一个小于x的数
+				j--;  
+            if(i &lt; j) 
+				s[i++] = s[j];
+			
+            while(i &lt; j &amp;&amp; s[i] &lt; x) // 从左向右找第一个大于等于x的数</pre><pre style="border: 1px solid rgb(255, 255, 204); background-color: rgb(255, 255, 252); font-family: 'Courier New'; overflow: auto; color: rgb(0, 0, 0); font-size: 16px; line-height: 24px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961); -webkit-text-size-adjust: none;"><span style="white-space: normal;">            i++;  </span></pre><pre style="border: 1px solid rgb(255, 255, 204); background-color: rgb(255, 255, 252); font-family: 'Courier New'; overflow: auto; color: rgb(0, 0, 0); font-size: 16px; line-height: 24px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961); -webkit-text-size-adjust: none;">            if(i &lt; j) 
+				s[j--] = s[i];
+        }
+        s[i] = x;
+        quick_sort(s, l, i - 1); // 递归调用 
+        quick_sort(s, i + 1, r);
+    }
+}</pre></span></div><div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><br/></span></div><div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">通过一趟排序将要排序的数据分割成独立的两部分,其中一部分的所有数据都比另外一部分的所有数据都要小,然后再按此方法对这两部分数据分别进行快速排序,整个排序过程可以递归进行,以此达到整个数据变成有序序列.算法过程如下：设要排序的数组是A[0]……A[N-1],首先任意选取一个数据（通常选用第一个数据）作为关键数据,然后将所有比它小的数都放到它前面,所有比它大的数都放到它后面,这个过程称为一趟快速排序.一趟快速排序的算法是：</span>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　1）设置两个变量I、J,排序开始的时候：I=1,J=N-1； </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　2）以第一个数组元素作为关键数据,赋值给X,即 X=A[0]； </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　3）从J开始向前搜索,即由后开始向前搜索（J=J-1）,找到第一个小于X的值,让该值与X交换； </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　4）从I开始向后搜索,即由前开始向后搜索（I=I+1）,找到第一个大于X的值,让该值与X交换； </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　5）重复第3、4步,直到 I=J； </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　例如：待排序的数组A的值分别是：（初始关键数据：X=49） </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　A[0] 、 A[1]、 A[2]、 A[3]、 A[4]、 A[5]、 A[6]：</span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　49 38 65 97 76 13 27 </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　进行第一次交换后：27 38 65 97 76 13 49 </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　( 按照算法的第三步从后面开始找)</span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　进行第二次交换后：27 38 49 97 76 13 65 </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　( 按照算法的第四步从前面开始找&gt;X的值,65&gt;49,两者交换,此时：I=3 ) </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　进行第三次交换后：27 38 13 97 76 49 65 </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　( 按照算法的第五步将又一次执行算法的第三步从后开始找 </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　进行第四次交换后：27 38 13 49 76 97 65 </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　( 按照算法的第四步从前面开始找大于X的值,97&gt;49,两者交换,此时：J=4 ) </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　此时再执行第三步的时候就发现I=J,从而结束一躺快速排序,那么经过一趟快速排序之后的结果是：27 38 13 49 76 97 65,即所以大于49的数全部在49的后面,所以小于49的数全部在49的前面.</span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　快速排序就是递归调用此过程——在以49为中点分割这个数据序列,分别对前面一部分和后面一部分进行类似的快速排序,从而完成全部数据序列的快速排序,最后把此数据序列变成一个有序的序列,根据这种思想对于上述数组A的快速排序的全过程如图6所示：</span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　初始状态 {49 38 65 97 76 13 27} </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　进行一次快速排序之后划分为 {27 38 13} 49 {76 97 65} </span></div>
+
+		<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　分别对前后两部分进行快速排序 {27 38 13} 经第三步和第四步交换后变成 {13 27 38} 完成排序.</span></div>
+
+	</div>
+
+	<div><span style="color: rgb(51, 51, 51); font-family: arial, tahoma, 'Microsoft Yahei', 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">　　{76 97 65} 经第三步和第四步交换后变成 {65 76 97} 完成排序.</span></div>
+
+
+
+</body></html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-07-29 05:26:07 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-09-15 16:43:53 +0000"/><title>数据结构</title></head><body>
+<div><b>1.常用数据结构</b></div>
+<div>数组 (Array)，堆 (Heap)，栈 (Stack)，队列 (Queue)，链表 (Linked List)，树 (Tree)，图 (Graph)，散列表 (Hash)</div>
+<div><b>2.</b><b>分类回归树</b></div>
+<div>分类回归树是基于统计理论的非参数的数据挖掘技术。基本思想是从根结点开始采用自顶向下的递归方式在每个节点上对样本集按照给定标准选择分支属性然后按分支可能属性向下建立分支，划分训练样本，直到所有样本被划分同一类。</div>
+<div><b>3.HashMap</b></div>
+<div>
+<h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"><span style="font-size: 14px; font-family: arial, 宋体, sans-serif; text-indent: 28px;"><span style="color: rgb(0, 0, 0);"><span style="font-family: 'Times New Roman';">那么我们能不能综合两者的特性，做出一种寻址容易，插入删除也容易的数据结构？答案是肯定的，这就是我们要提起的哈希表。</span></span>哈希表（</span><span style="font-size: 14px; font-family: arial, 宋体, sans-serif; text-indent: 28px;">(Hash table</span><span style="font-size: 14px; font-family: arial, 宋体, sans-serif; text-indent: 28px;">）</span><span style="font-size: 14px; font-family: arial, 宋体, sans-serif; text-indent: 28px;">既满足了数据的查找方便，同时不占用太多的内容空间，使用也十分方便。</span></h3>
+<p style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">　　哈希表有多种不同的实现方法，我接下来解释的是最常用的一种方法—— 拉链法，我们可以理解为“<strong>链表的数组</strong>” ，如图：</p>
+<p style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.resources/D64730E0-7735-4680-A436-EB20059388F8.jpg" height="407" width="512"/></p>
+<p style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"><br/></p>
+<p style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.resources/D8F5CFC2-9976-43C2-BE61-B9CDE1B66216.png" height="456" width="541"/><br/></p>
+<p style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"><br/></p>
+<p style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">　　从上图我们可以发现哈希表是由<strong>数组+链表</strong>组成的，一个长度为16的数组中，每个元素存储的是一个链表的头结点。那么这些元素是按照什么样的规则存储到数组中呢。一般情况是通过hash(key)%len获得，也就是元素的key的哈希值对数组长度取模得到。比如上述哈希表中，12%16=12,28%16=12,108%16=12,140%16=12。所以12、28、108以及140都存储在数组下标为12的位置。</p>
+<h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">1）put</h3>
+<div style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> 这里HashMap里面用到链式数据结构的一个概念。上面我们提到过Entry类里面有一个next属性，作用是指向下一个Entry。打个比方， 第一个键值对A进来，通过计算其key的hash得到的index=0，记做:Entry[0] = A。一会后又进来一个键值对B，通过计算其index也等于0，现在怎么办？HashMap会这样做:<em>B.next = A</em>,Entry[0] = B,如果又进来C,index也等于0,那么<em>C.next = B</em>,Entry[0] = C；这样我们发现index=0的地方其实存取了A,B,C三个键值对,他们通过next这个属性链接在一起。所以疑问不用担心。<strong>也就是说数组中存储的是最后插入的元素。</strong></div>
+</div>
+<div>
+<h3 style="margin: 10px 0px; font-size: 16px; color: rgb(102, 102, 102); background-image: none; font-family: Verdana; background-repeat: no-repeat no-repeat;">查找的性能分析</h3>
+<h3 style="margin: 10px 0px; font-size: 16px; color: rgb(102, 102, 102); background-image: none; font-family: Verdana; background-repeat: no-repeat no-repeat;"><span style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;">   　散列表的查找过程基本上和造表过程相同。一些关键码可通过散列函数转换的地址直接找到，另一些关键码在散列函数得到的地址上产生了冲突，需要按处理冲突的方法进行查找。在介绍的三种处理冲突的方法中，产生冲突后的查找仍然是给定值与关键码进行比较的过程。所以，对散列表查找效率的量度，依然用</span><a style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; color: rgb(26, 139, 200); text-decoration: none;" target="_blank" href="http://baike.baidu.com/view/547277.htm"><span style="color: rgb(19, 110, 194);">平均查找长度</span></a><span style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;">来衡量。</span></h3>
+<div style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;"/>
+<p style="margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;">　　查找过程中，关键码的比较次数，取决于产生冲突的多少，产生的冲突少，查找效率就高，产生的冲突多，查找效率就低。因此，影响产生冲突多少的因素，也就是影响查找效率的因素。影响产生冲突多少有以下三个因素：</p>
+<div style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;"/>
+<p style="margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;">　　1. 散列函数是否均匀；</p>
+<div style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;"/>
+<p style="margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;">　　2. 处理冲突的方法；</p>
+<div style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px;"/>
+<div style="margin: 10px auto;">
+<div><span style="color: rgb(75, 75, 75);"><span style="font-size: 13px;"><span style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;">　　3. 散列表的装填因子。</span></span></span></div>
+<div><b><span style="color: rgb(75, 75, 75);"><span style="font-size: 13px;"><span style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;">4.</span></span></span>树与二叉树的转换</b></div>
+<div><span style="color: rgb(64, 64, 64);"><span style="font-family: simsun;">将树转换为二叉树的步骤如下：</span></span></div>
+<div>
+<div style="padding: 0px; border: 0px; list-style: none; word-wrap: normal; word-break: normal; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><span style="color: rgb(64, 64, 64);"><span style="font-family: simsun;">1加线：所有兄弟节点之间加线</span></span></div>
+<div><span style="color: rgb(64, 64, 64);"><span style="font-family: simsun;">2去线：保留树中每个结点与它第一个孩子的连线，删除其与其他孩子的连线</span></span></div>
+<div><span style="color: rgb(64, 64, 64);"><span style="font-family: simsun;">3层次调整：以根结点为轴心，将整棵树旋转，使之层次分明。</span></span></div>
+<div><span style="font: 12.0px Helvetica"><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.resources/F9A79856-C5C7-4099-A19D-D4F1E8063410.jpg" height="413" width="552"/></span></div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="keywords" content="面试"/><meta name="altitude" content="461.9430847167969"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-07-27 12:15:14 +0000"/><meta name="latitude" content="34.15396865247476"/><meta name="longitude" content="108.9017380052958"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-10-15 19:17:35 +0000"/><title>操作系统</title></head><body>
+
+	<div><b><span style="font-size: 18px;"><span style="color: rgb(69, 69, 69);"><span style="font-family: arial;">1.逻辑地址，物理地址，线性地址</span></span></span></b></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">逻辑地址（Logical Address） 是指由程序产生的与段相关的偏移地址部分。例如，你在进行C语言指针编程中，可以读取指针变量本身值(&amp;操作)，实际上这个值就是逻辑地址，它是相对于你当前进程数据段的地址，不和绝对物理地址相干。应用程序员仅需与逻辑地址打交道，而分段和分页机制对您来说是完全透明的，仅由系统编程人员涉及。应用程序员虽然自己可以直接操作内存，那也只能在操作系统给你分配的内存段操作。</span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">物理地址（Physical Address） 是指出现在CPU外部地址总线上的寻址物理内存的地址信号，是地址变换的最终结果地址。如果启用了分页机制，那么线性地址会使用页目录和页表中的项变换成物理地址。如果没有启用分页机制，那么线性地址就直接成为物理地址了。</span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">线性地址（Linear Address） 是逻辑地址到物理地址变换之间的中间层。程序代码会产生逻辑地址，或者说是段中的偏移地址，加上相应段的基地址就生成了一个线性地址。如果启用了分页机制，那么线性地址可以再经变换以产生一个物理地址。若没有启用分页机制，那么线性地址直接就是物理地址。Intel 80386的线性地址空间容量为4G（2的32次方即32根地址总线寻址）。</span></div>
+
+	<div><span style="font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei';"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(69, 69, 69);">重定位指将一个操作数的逻辑地址转换为物理地址</span></span></span></div>
+
+	<div><b><span style="font-size: 18px;"><span style="font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei';"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(69, 69, 69);">2.线程，进程</span></span></span></span></b></div>
+
+	<div><span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">一个程序至少有一个进程,一个进程至少有一个线程.</span></div>
+
+	<div><span style="color: rgb(51, 51, 51); font-family: 'Microsoft Yahei', 微软雅黑, arial, 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">进程是一个具有独立功能的程序关于某个数据集合的一次运行活动。它可以申请和拥有系统资源，是一个动态的概念，是一个活动的实体。它不只是程序的代码，还包括当前的活动，通过程序计数器的值和处理寄存器的内容来表示。</span></div>
+
+	<div><span style="color: rgb(51, 51, 51); font-family: 'Microsoft Yahei', 微软雅黑, arial, 宋体, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">通常在一个进程中可以包含若干个线程，它们可以利用进程所拥有的资源。在引入线程的操作系统中，通常都是把进程作为分配资源的基本单位，而把线程作为独立运行和独立调度的基本单位。由于线程比进程更小，基本上不拥有系统资源，故对它的调度所付出的开销就会小得多，能更高效的提高系统内多个程序间并发执行的程度。</span></div>
+
+	<div><span style="font-family: 'Microsoft Yahei', 微软雅黑, arial, 宋体, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);"><br/></span></span></span></div>
+
+	<div>
+
+		<div><span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);"><b>与进程的区别:</b></span></div>
+
+		<div><span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">(1)地址空间:进程内的一个执行单元;进程至少有一个线程;它们共享进程的地址空间;而进程有自己独立的地址空间;</span></div>
+
+		<div><span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">(2)资源拥有:进程是资源分配和拥有的单位,同一个进程内的线程共享进程的资源</span></div>
+
+		<div><span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">(3)线程是处理器调度的基本单位,但进程不是.</span></div>
+
+	</div>
+
+	<div><span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">4)二者均可并发执行.</span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+	<div><b><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">创建一个进程需要做的工作：</span></span></b></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">1,申请空白PCB（进程控制块）；</span></span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">2,为新进程分派资源；</span></span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">3,初始化PCB；</span></span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">4,将新进程插入就绪队列；</span></span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+	<div><span style="font-size: 18px;"><b><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">3.进程线程间的通信方式</span></span></b></span></div>
+
+	<div><b>进程间的通信方式</b></div>
+
+	<div># 管道( pipe )：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</div>
+
+	<div># 有名管道 (namedpipe) ： 有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。</div>
+
+	<div># 信号量(semophore ) ： 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</div>
+
+	<div># 消息队列( messagequeue ) ： 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</div>
+
+	<div># 信号 (sinal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</div>
+
+	<div># 共享内存(shared memory ) ：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号两，配合使用，来实现进程间的同步和通信。</div>
+
+	<div># 套接字(socket ) ： 套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</div>
+
+	<div><br/></div>
+
+	<div><b>线程间的通信方式</b></div>
+
+	<div># 锁机制：包括互斥锁、条件变量、读写锁</div>
+
+	<div>   *互斥锁提供了以排他方式防止数据结构被并发修改的方法。</div>
+
+	<div>   *读写锁允许多个线程同时读共享数据，而对写操作是互斥的。</div>
+
+	<div>   *条件变量可以以原子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</div>
+
+	<div># 信号量机制(Semaphore)：包括无名线程信号量和命名线程信号量</div>
+
+	<div># 信号机制(Signal)：类似进程间的信号处理</div>
+
+	<div>    线程间的通信目的主要是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制。</div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+	<div><b><span style="font-size: 18px;"><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">4.URI，URL</span></span></span></b></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">URl(Uniform Resource Identifiers)统一资源标识符</span></span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">URL(Uniform Resource Locator)统一资源定位器，资源包括文件目录，数据库，搜索引擎。URL可以由协议名、主机、端口和资源组成。</span></span></div>
+
+	<div><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+	<div><b><span style="font-size: 18px;"><span style="font-family: Verdana;"><span style="background-color: rgb(255, 255, 255);">5.中断</span></span></span></b></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">CPU在执行一个程序时，对系统发生的某个事件（程序自身或外界的原因）作出的一种反应：CPU暂停正在执行的程序，保留现场后自动转去处理相应的事件，处理完该事件后，到适当的时候返回断点，继续完成被打断的程序。</span></div>
+
+	<div><span style="font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei';"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(69, 69, 69);"><br/></span></span></span></div>
+
+	<div><span style="font-size: 18px;"><b><span style="font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei';"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(69, 69, 69);">6.堆栈</span></span></span></b></span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">1、栈区（stack）— 由编译器自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">2、堆区（heap） — 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。</span></div>
+
+	<div><span style="font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei';"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(69, 69, 69);"><br/></span></span></span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出。 </span>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">堆：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时， </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">2.3申请大小的限制 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">栈：在Windows下,栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，在WINDOWS下，栈的大小是2M（也有的说是1M，总之是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示overflow。因此，能从栈获得的空间较小。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">堆：堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">2.4申请效率的比较： </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">栈由系统自动分配，速度较快。但程序员是无法控制的。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">堆是由new分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便. </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">另外，在WINDOWS下，最好的方式是用VirtualAlloc分配内存，他不是在堆，也不是在栈是直接在进程的地址空间中保留一快内存，虽然用起来最不方便。但是速度快，也最灵活。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">2.5堆和栈中的存储内容 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">栈： 在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">堆：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">2.6存取效率的比较 </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">char s1[] = "aaaaaaaaaaaaaaa"; </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">char *s2 = "bbbbbbbbbbbbbbbbb"; </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">aaaaaaaaaaa是在运行时刻赋值的； </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">而bbbbbbbbbbb是在编译时就确定的； </span></div>
+
+	</div>
+
+	<div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">但是，在以后的存取中，在栈上的数组比指针所指向的字符串(例如堆)快。 </span></div><div><span style="color: rgb(69, 69, 69); font-family: arial, 宋体, sans-serif, tahoma, 'Microsoft YaHei'; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><br/></span></div><div>7.操作系统进程调度算法</div><div>http://m.blog.csdn.net/blog/luyafei_89430/12971171</div><div>可能题目：3个进程分别需要执行5s，10s，5s，问执行顺序。根据算法的不同，任何执行顺序都有可能，结合算法说。</div>
+
+
+
+</body></html>

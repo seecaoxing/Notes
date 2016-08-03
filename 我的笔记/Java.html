@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-07-29 05:38:19 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-10-15 19:05:44 +0000"/><title>Java</title></head><body>
+
+	<div><b>1.垃圾回收机制</b></div>
+
+	<div>1.引用计数，对象有引用也加一，没有则减一，收集为0的对象！缺点对循环引用以及赋值后对象无法处理！</div>
+
+	<div>2.复制，把内存空间划分2个相等区域，使用一个区域。垃圾回收时遍厉当前区域，把正在使用的复制到另外一个区域</div>
+
+	<div>3.标记清扫，对于活的对象，一定可以追溯到其存活的堆栈，静态存储区的引用，这个引用链条可以穿过数个对象层次。第一阶段，从GC toots开始遍厉所有引用，对有活的对象进行标记。第二阶段，对堆进行遍厉，把未标记的对象进行清除。</div>
+
+	<div>4.分代，基于对象生命周期分析将对象分为年轻代，年老代，持久代</div>
+
+	<div><b>2.String和StringBuffer</b></div>
+
+	<div>（1）String类对象为不可变对象，一旦你修改了String对象的值，隐性重新创建了一个新的对象，释放原String对象，StringBuffer类对象为可修改对象，可以通过append()方法来修改值</div>
+
+	<div>（2）String类对象的性能远不如StringBuffer类。</div>
+
+	<div>总结: 如果在程序中需要对字符串进行频繁的修改连接操作的话.使用StringBuffer性能会更高</div>
+
+	<div><b>3.StringBuffer和StringBuilder</b></div>
+
+	<div>1.  在执行速度方面的比较：StringBuilder &gt;  StringBuffer</div>
+
+	<div>2.  StringBuffer与StringBuilder，他们是字符串变量，是可改变的对象，每当我们用它们对字符串做操作时，实际上是在一个对象上操作的，不像String一样创建一些对象进行操作，所以速度就快了。</div>
+
+	<div>3.  StringBuilder：线程非安全的</div>
+
+	<div>     StringBuffer：线程安全的</div>
+
+	<div>    当我们在字符串缓冲去被多个线程使用是，JVM不能保证StringBuilder的操作是安全的，虽然他的速度最快，但是可以保证StringBuffer是可以正确操作的。当然大多数情况下就是我们是在单线程下进行的操作，所以大多数情况下是建议用StringBuilder而不用StringBuffer的，就是速度的原因。</div>
+
+	<div><br/></div>
+
+	<div>对于三者使用的总结：1.如果要操作少量的数据用 = String</div>
+
+	<div>                    2.单线程操作字符串缓冲区 下操作大量数据 = StringBuilder</div>
+
+	<div>                    3.多线程操作字符串缓冲区 下操作大量数据 = StringBuffer</div>
+
+	<div><br/></div>
+
+	<div><b>4.线程池</b></div>
+
+	<div>让CPU充分使用，提高程序运行效率。</div>
+
+	<div>原理： 来看一下线程池究竟是怎么一回事？其实线程池的原理很简单，类似于操作系统中的缓冲区的概念，它的流程如下：先启动若干数量的线程，并让这些线程都处于睡眠状态，当客户端有一个新请求时，就会唤醒线程池中的某一个睡眠线程，让它来处理客户端的这个请求，当处理完这个请求后，线程又处于睡眠状态。可能你也许会问：为什么要搞得这么麻烦，如果每当客户端有新的请求时，我就创建一个新的线程不就完了？这也许是个不错的方法，因为它能使得你编写代码相对容易一些，但你却忽略了一个重要的问题??性能！就拿我所在的单位来说，我的单位是一个省级数据大集中的银行网络中心，高峰期每秒的客户端请求并发数超过100，如果为每个客户端请求创建一个新线程的话，那耗费的CPU时间和内存将是惊人的，如果采用一个拥有200个线程的线程池，那将会节约大量的的系统资源，使得更多的CPU时间和内存用来处理实际的商业应用，而不是频繁的线程创建与销毁。</div>
+
+	<div><b>5.线程安全</b></div>
+
+	<div>采用线程同步使线程非安全变为线程安全</div>
+
+	<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">当多个线程同时读写同一份共享资源的时候，可能会引起冲突。这时候，我们需要引入线程“同步”机制，即各位线程之间要有个先来后到</span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">线程同步的方法</span>
+
+		<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">(1)wait():使一个线程处于等待状态，并且释放所持有的对象的lock。</span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">(2)sleep():使一个正在运行的线程处于睡眠状态，是一个静态方法，调用此方法要捕捉  </span></div>
+
+		<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">InterruptedException异常。</span></div>
+
+	</div>
+
+	<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">(3)notify():唤醒一个处于等待状态的线程，注意的是在调用此方法的时候，并不能确切的</span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">唤醒某一个等待状态的线程，而是由JVM确定唤醒哪个线程，而且不是按优先级。</span></div>
+
+	<div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">(4)notityAll ():唤醒所有处入等待状态的线程，注意并不是给所有唤醒线程一个对象的锁，</span><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">而是让它们竞争</span></div><div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><br/></span></div><div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">线程同步的方法java</span><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><b>多线程必考必考必考！！</b></span></div><div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><b><br/></b></span></div><div><span style="color: rgb(69, 69, 69); font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;"><div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">1.同步方法 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    即有synchronized关键字修饰的方法。 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    由于java的每个对象都有一个内置锁，当用此关键字修饰方法时， </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    内置锁会保护整个方法。在调用该方法前，需要获得内置锁，否则就处于阻塞状态。</div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    代码如： </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    public synchronized void save(){}</div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">   注： synchronized关键字也可以修饰静态方法，此时如果调用该静态方法，将会锁住整个类</div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">2.同步代码块 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    即有synchronized关键字修饰的语句块。 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    被该关键字修饰的语句块会自动被加上内置锁，从而实现同步</div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    代码如： </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    synchronized(object){ </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);">    }</div><div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 宋体; font-size: 21px; -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);"><div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">3.使用特殊域变量(volatile)实现线程同步</div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">    a.volatile关键字为域变量的访问提供了一种免锁机制， </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">    b.使用volatile修饰域相当于告诉<a style="color: rgb(51, 51, 51); text-decoration: none; font-size: 14px;" target="_blank" href="http://www.2cto.com/os/xuniji/">虚拟机</a>该域可能会被其他线程更新， </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">    c.因此每次使用该域就要重新计算，而不是使用寄存器中的值 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">    d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量 </div><div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">但是他有缺点，就是不一定能保证线程同步。具体参见这里http://m.baidu.com/from=1086k/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_2002%2Cta%40iphone_1_9.0_2_6.1/baiduid=08139955AABB2D4150B823D7BBD3C224/w=0_10_volatil/t=iphone/l=3/tc?ref=www_iphone&amp;lid=9968193962829174761&amp;order=3&amp;vit=osres&amp;tj=www_normal_3_0_10_title&amp;m=8&amp;srd=1&amp;cltj=cloud_title&amp;dict=30&amp;nt=wnor&amp;title=java%E4%B8%ADvolatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89-GodIsCoder-%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;sec=7160&amp;di=666dd309f085b2fc&amp;bdenc=1&amp;tch=124.132.51.593.1.2976210&amp;tch=124.233.58.596.1.2975819&amp;nsrc=IlPT2AEptyoA_yixCFOxXnANedT62v3IEQGG_ytK1DK6mlrte4viZQRAYzbsL8WVEEywdoS4csxNaT0u3mRU7xJ_rrdmpWkbznuPd48hgK3AGRYYfgNiNNbWVS7</div><div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;"><div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">4.ReenreantLock类(直接说lock也可)的常用方法有：</div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;"> </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">        ReentrantLock() : 创建一个ReentrantLock实例 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">        lock() : 获得锁 </div>
+	<div style="border-width: 0px; padding: 0px; margin: 0px; list-style: none;">        unlock() : 释放锁 </div></div></div></span></div>
+
+	<div><b><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(69, 69, 69);">6.String类（传值？传地址？）</span></span></b></div>
+
+	<div>String在java源码中实现的方法是char[]数组，并且定义为final  ！即不可被修改。</div>
+
+	<div>
+
+		<div style="padding: 0px; color: rgb(0, 0, 0); font-family: Arial; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"><span style="font-family: SimSun;">当字符串“ab”被创建，java分配存储字符串对象所需的内存空间。然后，将对象分配给变量x，该变量是被实际分配的引用对象。此引用是该对象被存储在内存的地址。<br/>
+变量x包含一个字符串对象的引用。 x不是引用本身！它是用于存储一个引用（内存地址）的变量。<br/>
+Java是仅仅是按值传递。当x传递给change()方法，x的（引用）值的副本被传递。方法change()创建另一个对象“cd”，它有一个不同的引用。它是被改变的x副本指向“cd”的变量，而不是x引用本身。</span>
+
+			<div><span style="font-family: SimSun;">下面的图表展现了真实的过程：</span></div>
+
+		</div>
+
+	</div>
+
+	<div><img src="Java.resources/37EB1C33-4A48-4A4C-9B04-FBCE1DC96025.png" height="244" width="650"/></div>
+
+	<div><br/></div>
+
+	<div>
+
+		<div style="padding: 0px; color: rgb(0, 0, 0); font-family: Arial; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+
+			<div><span style="font-family: SimSun; font-size: 18px;">如果我们真的需要改变对象的值。首先，对象应该是可变的，例如，StringBuilder对象。其次，我们需要确保没有创建新的对象并将此对象分配给参数变量，因为Java是只是按值传递（passing-by-value）。</span></div>
+
+		</div>
+
+		<div style="padding: 0px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">public static void main(String[] args) {</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">     StringBuilder x = new StringBuilder("ab");</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">     change(x);</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">     System.out.println(x);</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">}</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">public static void change(StringBuilder x) {</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">     x.delete(0, 2).append("cd");</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">}</span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;"><b>7.char</b></span></div>
+
+			<div style="font-weight: normal;"><span style="font-family: Arial;">在c中占用1个字节，但是在java中占用2个字节，因为java中char以unicode编码，c用ASCII</span></div>
+
+			<div style="font-weight: normal;"><strong style="padding: 0px; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; letter-spacing: normal; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; widows: 2; background-color: rgb(255, 255, 255); font-family: verdana, 'Lucida Grande', arial, helvetica, sans-serif; orphans: 2; font-size: 12px;">常用数据类型对应字节数  </strong></div>
+
+			<div style="font-weight: normal;"><span style="font-family: verdana, 'Lucida Grande', arial, helvetica, sans-serif;"><span style="font-size: 12px;">      32位编译器：</span></span></div>
+
+			<div>
+
+				<p style="font-weight: normal; padding: 0px; color: rgb(0, 0, 0); font-size: 12px; text-indent: 0px; font-style: normal; font-variant: normal; letter-spacing: normal; text-align: left; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; widows: 2; background-color: rgb(255, 255, 255); font-family: verdana, 'Lucida Grande', arial, helvetica, sans-serif; orphans: 2;">      char ：1个字节  <br style=" padding: 0px;"/>
+<span style="padding: 0px; color: rgb(255, 0, 0);">      char*（即指针变量）: 4个字节（32位的寻址空间是2^32, 即32个bit，也就是4个字节。同理64位编译器）  <br style=" padding: 0px;"/></span>      short int : 2个字节  <br style=" padding: 0px;"/>
+      int： <span style="padding: 0px;"> </span>4个字节  <br style=" padding: 0px;"/>
+      unsigned int : 4个字节  <br style=" padding: 0px;"/>
+      float: <span style="padding: 0px;"> </span>4个字节  <br style=" padding: 0px;"/>
+      double:  <span style="padding: 0px;"> </span>8个字节  <br style=" padding: 0px;"/>
+<span style="padding: 0px; color: rgb(255, 0, 0);">      long:  <span style="padding: 0px;"> </span>4个字节  <br style=" padding: 0px;"/></span>      long long: <span style="padding: 0px;"> </span>8个字节  <br style=" padding: 0px;"/>
+<span style="padding: 0px; color: rgb(255, 0, 0);">      unsigned long: <span style="padding: 0px;"> </span>4个字节  <br style=" padding: 0px;"/></span></p>
+
+				<p style="font-weight: normal; padding: 0px; color: rgb(0, 0, 0); font-size: 12px; text-indent: 0px; font-style: normal; font-variant: normal; letter-spacing: normal; text-align: left; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; widows: 2; background-color: rgb(255, 255, 255); font-family: verdana, 'Lucida Grande', arial, helvetica, sans-serif; orphans: 2;">      64位编译器：</p>
+
+				<div style="padding: 0px; text-indent: 0px; font-style: normal; font-variant: normal; letter-spacing: normal; text-align: left; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; widows: 2; background-color: rgb(255, 255, 255); orphans: 2;"><span style="font-weight: normal; font-size: 12px;"><span style="font-family: verdana, 'Lucida Grande', arial, helvetica, sans-serif;">      char ：1个字节  <br style=" padding: 0px;"/>
+<span style="padding: 0px; color: rgb(255, 0, 0);">      char*(即指针变量): 8个字节  <br style=" padding: 0px;"/></span>      short int : 2个字节  <br style=" padding: 0px;"/>
+      int： <span style="padding: 0px;"> </span>4个字节  <br style=" padding: 0px;"/>
+      unsigned int : 4个字节  <br style=" padding: 0px;"/>
+      float: <span style="padding: 0px;"> </span>4个字节  <br style=" padding: 0px;"/>
+      double:  <span style="padding: 0px;"> </span>8个字节  <br style=" padding: 0px;"/>
+<span style="padding: 0px; color: rgb(255, 0, 0);">      long:  <span style="padding: 0px;"> </span>8个字节  <br style=" padding: 0px;"/></span>      long long: <span style="padding: 0px;"> </span>8个字节  </span></span>
+
+					<div style="font-weight: normal;"><span style="font-size: 12px;"><span style="font-family: verdana, 'Lucida Grande', arial, helvetica, sans-serif;"><span style="padding: 0px; color: rgb(255, 0, 0);">      unsigned long: <span style="padding: 0px;"> </span>8个字节 </span></span></span></div>
+
+					<div style="font-weight: normal;"><br/></div>
+
+					<div>
+
+						<div style="font-weight: normal; padding: 0px; text-indent: 0px; color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+
+							<div><b>8.JAVA内存机制</b></div>
+
+							<div>在java中主要存在4块内存空间，这些内存的名称及作用如下：</div>
+
+						</div>
+
+						<ol style="font-weight: normal; padding: 0px 0px 0px 50px; color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+
+							<li style=" padding: 0px; list-style: decimal;">栈内存空间：保存所有的对象名称（更准确地说是保存了引用的堆内存空间的地址）</li>
+
+							<li style=" padding: 0px; list-style: decimal;">堆内存空间：保存每个对象的具体属性内容。</li>
+
+							<li style=" padding: 0px; list-style: decimal;">全局数据区：保存static类型的属性。</li>
+
+							<li style=" padding: 0px; list-style: decimal;">全局代码区：保存所有的方法定义。</li>
+
+						</ol>
+
+						<div style="padding: 0px; list-style: decimal;">
+
+							<div>
+
+								<div style="padding: 0px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+
+									<div style="font-weight: normal;"><span style="color: rgb(51, 51, 51);"><b>java内存管理机制会发生内存泄露</b>。java导致内存泄露的原因很明确：长生命周期的对象持有短生命周期对象的引用就很可能发生内存泄露，尽管短生命周期对象已经不再需要，但是因为长生命周期对象持有它的引用而导致不能被回收，这就是java中内存泄露的发生场景。</span></div>
+<span style="color: rgb(51, 51, 51);">1.集合类，集合类仅仅有添加元素的方法，而没有相应的删除机制，导致内存被占用。这一点其实也不明确，这个集合类如果仅仅是局部变量，根本不会造成内存泄露，在方法栈退出后就没有引用了会被jvm正常回收。而如果这个集合类是全局性的变量（比如类中的静态属性，全局性的map等即有静态引用或final一直指向它），那么没有相应的删除机制，很可能导致集合所占用的内存只增不减，因此提供这样的删除机制或者定期清除策略非常必要。</span>
+
+									<div style="font-weight: normal;"><span style="color: rgb(51, 51, 51);">2.</span><a style="color: rgb(45, 100, 179); text-decoration: none;" rel="nofollow" href="https://www.baidu.com/s?wd=%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9mhc1ryD4rjbYrAw9PAm40ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6K1TL0qnfK1TL0z5HD0IgF_5y9YIZ0lQzqlpA-bmyt8mh7GuZR8mvqVQL7dugPYpyq8Q1RsnHT3PW03P0">单例模式</a><span style="color: rgb(51, 51, 51);">。不正确使用</span><a style="color: rgb(45, 100, 179); text-decoration: none;" rel="nofollow" href="https://www.baidu.com/s?wd=%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9mhc1ryD4rjbYrAw9PAm40ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6K1TL0qnfK1TL0z5HD0IgF_5y9YIZ0lQzqlpA-bmyt8mh7GuZR8mvqVQL7dugPYpyq8Q1RsnHT3PW03P0">单例模式</a><span style="color: rgb(51, 51, 51);">是引起内存泄露的一个常见问题，单例对象在被初始化后将在JVM的整个生命周期中存在（以静态变量的方式），如果单例对象持有外部对象的引用，那么这个外部对象将不能被jvm正常回收，导致内存泄露</span></div>
+
+									<div style="font-weight: normal;"><span style="color: rgb(51, 51, 51);"><br/></span></div>
+
+									<div style="font-weight: normal;"><span style="color: rgb(51, 51, 51);"><b>9.异常</b></span></div>
+
+									<div><span style="color: rgb(51, 51, 51);">java中的异常都继承于</span><span style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">java.lang.Throwable</span></div>
+
+									<div><span style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">异常类分为两大类，错误Error和异常Exception。 Exception分为Runtime Exception和Checked Exception</span></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);">try +多个catch只会执行一个catch，取决于抛出的异常</span></span></span></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);"><br/></span></span></span></div>
+
+									<div><b><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);">10.序列化</span></span></span></b></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);">为什么要将对象序列化？</span></span></span></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);"> 1、永久性保存对象，保存对象的字节序列到本地文件中；</span></span></span></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);"> 2、用过序列化对象在网络中传递对象；</span></span></span></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);"> 3、通过序列化对象在进程间传递对象。</span></span></span></div>
+
+									<div><i><b><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);">Java对象与Java对象序列化的区别？</span></span></span></b></i></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);">Java对象存在的前提必须在JVM运行期间存在，如果想在JVM非运行的情况下或者在其他机器JVM上获取指定Java对象，在现有Java对象的机制下都不可能完成。 </span></span></span></div>
+
+									<div><span style="font-family: Arial;"><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(51, 51, 51);">与Java对象不同的是，如果对Java对象执行序列化操作，因为原理是把Java对象信息保存到存储媒介，所以可以在以上Java对象不可能存在的两种情况下依然可以使用Java对象。 </span></span></span></div>
+
+									<div><span style="color: rgb(51, 51, 51); font-family: 'Helvetica Neue', Helvetica, Tahoma, Arial, STXihei, 'Microsoft YaHei', 微软雅黑, sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(254, 254, 254);">Serializable使用IO读写存储在硬盘上，而Parcelable是直接在内存中读写，很明显内存的读写速度通常大于IO读写，所以在Android中通常优先选择Parcelable。</span></div>
+
+									<div><strong style="font-weight: bold; color: rgb(0, 0, 0); font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"><i>1、实现Serializable接口</i></strong></div>
+
+									<div><span style="color: rgb(0, 0, 0); font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);"> Serializable的作用是将数据对象存入字节流当中，在需要时重新生成对象，主要应用是利用外部存储设备保存对象状态，以及通过网络传输对象等。</span></div>
+
+									<div><span style="color: rgb(0, 0, 0); font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);"> implements Serializable接口的的作用就是给对象打了一个标记，系统会自动将其序列化。</span></div>
+
+									<div><i><b><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">2、实现Parcelable接口</span></span></b></i></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">      a、在使用内存的时候，Parcelable比Serializable性能高，所以推荐使用Parcelable类。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">      b、Serializable在序列化的时候会产生大量的临时变量，从而引起频繁的GC。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">   注意：Parcelable不能使用在将数据存储在磁盘上的情况，因为Parcelable不能很好的保存数据的持续性在外界有变化的情况下。因此在这种情况下，建议使用Serializable</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">1、作用</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">Serializable的作用是为了保存对象的属性到本地文件、数据库、网络流、rmi以方便数据传输，当然这种传输可以是程序内的也可以是两个程序间的。而Android的Parcelable的设计初衷是因为Serializable效率过慢，为了在程序内不同组件间以及不同Android程序间(AIDL)高效的传输数据而设计，这些数据仅在内存中存在，Parcelable是通过IBinder通信的消息的载体。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">从上面的设计上我们就可以看出优劣了。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">2、效率及选择</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">Parcelable的性能比Serializable好，在内存开销方面较小，所以在内存间数据传输时推荐使用Parcelable，如activity间传输数据，而Serializable可将数据持久化方便保存，所以在需要保存或网络传输数据时选择Serializable，因为android不同版本Parcelable可能不同，所以不推荐使用Parcelable进行数据持久化</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">3、编程实现</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">对于Serializable，类只需要实现Serializable接口，并提供一个序列化版本id(serialVersionUID)即可。而Parcelable则需要实现writeToParcel、describeContents函数以及静态的CREATOR变量，实际上就是将如何打包和解包的工作自己来定义，而序列化的这些操作完全由底层实现。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><b><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">11.多态</span></span></b></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">多态性是指允许不同类的对象对同一消息作出响应。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">多态有两种表现形式：重载和覆盖</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">重载（overload），是发生在同一类中。与什么父类子类、继承毫无关系。    </span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">  标识一个函数除了函数名外，还有函数的参数（个数和类型）。也就是说，一个类中可以有两个或更多的函数，叫同一个名字而他们的参数不同。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">覆盖(override),是发生在子类中！也就是说必须有继承的情况下才有覆盖发生。</span></span><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">我们知道继承一个类，也就有了父类了全部方法，如果你感到哪个方法不爽，功能要变，那就把那个函数在子类中重新实现一遍。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><b>12.引用类型</b></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">⑴强引用（StrongReference）</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">强引用是使用最普遍的引用。如果一个对象具有强引用，那垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足的问题。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">⑵软引用（SoftReference）</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">如果一个对象只具有软引用，则内存空间足够，垃圾回收器就不会回收它；如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存（下文给出示例）。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">⑶弱引用（WeakReference）</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br/></span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">⑷虚引用（PhantomReference）</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。</span></span></div>
+
+									<div><span style="font-family: Helvetica, Tahoma, Arial, sans-serif;"><span style="background-color: rgb(255, 255, 255);">虚引用主要用来跟踪对象被垃圾回收器回收的活动。虚引用与软引用和弱引用的一个区别在于：虚引用必须和引用队列 （ReferenceQueue）联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之 关联的引用队列中。</span></span></div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+</body></html>

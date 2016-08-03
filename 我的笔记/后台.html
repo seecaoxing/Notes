@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="altitude" content="417.71923828125"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-07-29 01:38:32 +0000"/><meta name="latitude" content="34.19237004262421"/><meta name="longitude" content="108.8689985434063"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-07-29 05:36:50 +0000"/><title>后台</title></head><body lang="">
+<div><b>1.多个客户端登陆同一账号，同时请求修改同一信息，服务器会怎么处理</b></div>
+<div> 多个请求同时转化为sql语句，提交给数据库处理，数据库会对该数据的行进行行锁，然后串行处理。</div>
+<div><b>2.Hibernate缓存机制</b></div>
+<div>Hibernate的缓存包括Session（持久化对象，不是cookie那个session）的缓存和SessionFactory的缓存</div>
+<div>缓存包括：事务范围，进程范围，集群范围</div>
+<div>1) 条件查询的时候，总是发出一条select * from table_name where …. （选择所有字段）这样的SQL语句查询数据库，一次获得所有的数据对象。</div>
+<div>2) 把获得的所有数据对象根据ID放入到第二级缓存中。</div>
+<div>3) 当Hibernate根据ID访问数据对象的时候，首先从Session一级缓存中查；查不到，如果配置了二级缓存，那么从二级缓存中查；查不到，再查询数据库，把结果按照ID放入到缓存。</div>
+<div>4) 删除、更新、增加数据的时候，同时更新缓存</div>
+</body></html>

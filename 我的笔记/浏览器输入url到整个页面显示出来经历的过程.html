@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="altitude" content="453.8224182128906"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-09-21 15:46:45 +0000"/><meta name="latitude" content="34.15396675243142"/><meta name="longitude" content="108.9017308058731"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-09-21 15:56:45 +0000"/><title>浏览器输入url到整个页面显示出来经历的过程</title></head><body>
+<div><b>大致过程</b></div>
+<div>输入地址后，计算机向dns服务器发出ip查询请求，要求进行地址解析，然后dns服务器把ip地址返回给计算机，计算机向目标web服务器发出一个带序列号的tcp 连接请求，对方收到请求后也返回给计算机一个带序列号的tcp应答并且要求计算机再次进行认证，计算机接受到后再次向web 服务器发出带序列号的tcp信号，至此，双方建立好了tcp连接（这就是著名的三次握手），然后服务器向计算机发送html网页信息由计算机分析，也就是页面开始跳转了</div>
+<div><b><br/></b></div>
+<div><br/></div>
+<div><b>DNS查找过程如下：</b></div>
+<div>
+<div style="font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; padding-top: 0px; padding-bottom: 0px; background-color: rgb(255, 255, 255);">
+<div>- 浏览器缓存 – 浏览器会缓存DNS记录一段时间。 有趣的是，操作系统没有告诉浏览器储存DNS记录的时间，这样不同浏览器会储存个自固定的一个时间（2分钟到30分钟不等）。</div>
+<div>- 系统缓存 – 如果在浏览器缓存里没有找到需要的记录，浏览器会做一个系统调用（windows里是gethostbyname）。这样便可获得系统缓存中的记录。</div>
+<div>- 路由器缓存 – 接着，前面的查询请求发向路由器，它一般会有自己的DNS缓存。</div>
+<div>- ISP DNS 缓存 – 接下来要check的就是ISP缓存DNS的服务器。在这一般都能找到相应的缓存记录。</div>
+<div>- 递归搜索 – 你的ISP的DNS服务器从跟域名服务器开始进行递归搜索，从.com顶级域名服务器到目标的域名服务器。一般DNS服务器的缓存中会有.com域名服务器中的域名，所以到顶级服务器的匹配过程不是那么必要了。</div>
+<div><br/></div>
+</div>
+<div style="font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; padding: 0px; background-color: rgb(255, 255, 255);">
+<div style=" padding: 0px; list-style: inherit !important;">
+<div>
+<p style="color: rgb(51, 51, 51); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; padding-top: 0px; padding-bottom: 0px; font-family: Verdana, Arial, Helvetica, sans-serif; background-color: rgb(255, 255, 255);">DNS递归查找如下图所示：</p>
+<p style="color: rgb(51, 51, 51); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; padding-top: 0px; padding-bottom: 0px; font-family: Verdana, Arial, Helvetica, sans-serif; background-color: rgb(255, 255, 255);"><img src="%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5url%E5%88%B0%E6%95%B4%E4%B8%AA%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%87%BA%E6%9D%A5%E7%BB%8F%E5%8E%86%E7%9A%84%E8%BF%87%E7%A8%8B.resources/02A6352F-C3DB-445A-9F70-AA1D9BF0BF77.png" height="178" width="500"/></p>
+<div style="font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; padding: 0px; background-color: rgb(255, 255, 255);">
+<div><span style="color: rgb(51, 51, 51);"><span style="font-family: Verdana, Arial, Helvetica, sans-serif;"><br/></span></span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;"><span style="color: rgb(51, 51, 51);">DNS有一点令人担忧，这就是像wikipedia.org或者 facebook.com这样的整个域名看上去只是对应一个单独的IP地址。还好，有几种方法可以消除这个瓶颈：</span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;"><span style="color: rgb(51, 51, 51);">- 循环 DNS 是DNS查找时返回多个IP时的解决方案。举例来说，Facebook.com实际上就对应了四个IP地址。</span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;"><span style="color: rgb(51, 51, 51);">- 负载平衡器 是以一个特定IP地址进行侦听并将网络请求转发到集群服务器上的硬件设备。 一些大型的站点一般都会使用这种昂贵的高性能负载平衡器。</span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;"><span style="color: rgb(51, 51, 51);">- 地理 DNS 根据用户所处的地理位置，通过把域名映射到多个不同的IP地址提高可扩展性。这样不同的服务器不能够更新同步状态，但映射静态内容的话非常好。</span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;"><span style="color: rgb(51, 51, 51);">- Anycast 是一个IP地址映射多个物理主机的路由技术。 美中不足，Anycast与TCP协议适应的不是很好，所以很少应用在那些方案中。</span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;"><span style="color: rgb(51, 51, 51);">大多数DNS服务器使用Anycast来获得高效低延迟的DNS查找。</span></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;">
+<h2 style="color: rgb(0, 0, 0); font-family: STHeiti; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">服务器处理</h2>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">建立好连接后，客户端就会发送http请求，请求信息包含一个头部和一个请求体，</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">一般的web技术都会把请求进行封装然后交给我们的服务器进行处理，比如servlet会把请求封装成httpservletrequest对象，把响应封装成httpsevletresponse对象。nodejs的http模块，当你创建服务器的时候会写一个回调函数，回调的参数用来接受http请求对象和响应对象，然后在回调函数中对请求进行处理。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">在请求对象中我们可以得到path（路径），queryString（查询字符串），body（post请求中提交的数据）等。对请求的处理就可以很复杂，也可以很简单。我们可以根据path找到客户端想要的文件，读取这个文件，然后通过响应对象把内容返回给客户端，这个过程，不同的技术提供的api可能不同，尤其是用惯了MVC框架的人，可能只是指定一个文件，或者在配置文件中设置一下就好了。但是最终的实现肯定是符合http响应标准的，也就是要有一个响应头和一个响应体。我一般接触到的设置响应头就是设置content-type来决定MIME类型，设置Cache-Control，last-modify等缓存内容。一般来说返回给客户端的内容是一个html字符串，然后content-type设为text/html。当然也可能客户端请求的是一个image文件，那么就是读取image文件后，content-type可能设为image/png,image/jpg等,然后把内容返回给客户端。这样一次对请求的处理就结束了。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;"> </p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">当然这个过程太单一，而且处理过程也可能很复杂，又有数据的操作，又有页面的构建，又有路径的查找匹配，又有文件的读取等等，于是就出现了MVC框架以及后来演变出的各种MV*框架。这里不细讲MVC的内容，因为需要很长的篇幅。只是概述一下MVC主要做了什么，在我看来最重要的就是解耦和模块化。我认为MVC实现最重要的有两点：</p>
+<ol style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<li>路由匹配，http请求的path中就不需要指定到具体的视图位置，而是按照我们制定的规则进行匹配，这样就有了很大的灵活性，可编程性。</li>
+<li>模板技术，一般来说我们最后返回给客户端的是一个html字符串，而有时候这个字符串往往不是静态单一的，有的时候需要和数据进行结合，需要拼接。这就带来了很大的麻烦，模板技术为解决这个问题带来很大的便利性，同时又能够把视图和数据进行解耦。</li>
+</ol>
+<h2 style="color: rgb(0, 0, 0); font-family: STHeiti; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">客户端渲染</h2>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">客户端接收到服务器传来的响应对象，从中得到html字符串和MIME，根据MIME知道了要用页面渲染引擎来处理内容即html字符串，于是进入页面渲染阶段，这又是一个很庞杂的体系。我只能大体上说一下：</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">从浏览器的角度讲，它包含几大组件，网络功能（比如http的实现）算是其中之一，渲染引擎也是其中之一，还有其它的一些比如自己UI界面，javascript解释器，客户端数据存储等等。在这里我们主要关注渲染引擎和javascript解释器，对于web开发者来说，这才是浏览器的核心。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">我们能够在浏览器中看到一个页面，那么这个页面是怎么出现的呢？实际上就是调用底层绘图API给画出来的。不同的渲染引擎，它的实现也不同，主流的引擎包括IE的Trident，chrome和safary的webkit，firefox的Gecko，chrome又出了一个Blink，放弃webkit。于是乎才有了让人头疼的各种兼容性问题。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><strong>整体上页面渲染的过程大致是这样的：</strong></p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">渲染引擎得到html字符串作为输入，然后对html进行转换，转化成能够被DOM处理的形式，接着转换成一个dom树，在解析html的过程，解析到&lt;link&gt;,&lt;script&gt;,&lt;img&gt;等一些请求标签时，会发送请求把对应的内容获取到。这时又会同步进行css的解析，构建出css样式规则应用到dom树上，然后进行一定的布局处理，比如标记节点块在浏览器中的坐标等形成最终的渲染树，最后根据这棵渲染树在浏览器窗口中进行绘制。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">最终我们就看到了页面的样子。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;"> </p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">当然在页面渲染过程中还会同步进行javascript的解析，而且这两者是在同一个线程中的，所以一旦javascript死循环，页面的渲染也就进行不下去了。</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">以上是我从一个web开发者的角度思考的整个过程。如果从别的角度更细化的去想，还包括许多内容：</p>
+<p style="color: rgb(0, 0, 0); font-family: STHeiti; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">比如整个网络通信中协议的封装：</p>
+</div>
+<div><br/></div>
+<div style=" padding-top: 0px; padding-bottom: 0px;">
+<div style="font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><span style="font-family: STHeiti;">在本机中，把要传输的内容即请求对象在应用层上加上App首部，传递到传输层加上TCP首部，到网络层加上IP首部，数据链路层加上以太网的首部和尾部，然后转换成bit流进入网络环境中。到达主机后在一层层解封装，最后把内容交给服务器程序。</span></div>
+<div><span style="font-family: STHeiti;"><br/></span></div>
+<div><span style="font-family: STHeiti;"><br/></span></div>
+<div><span style="font-family: STHeiti;"><br/></span></div>
+<div><span style="font-size: 18px;"><b>另：负载均衡</b></span></div>
+<div><span style="font-family: STHeiti;">负载均衡是由多台服务器以对称的方式组成一个服务器集合，每台服务器都具有等价的地位，都可以单独对外提供服务而无须其他服务器的辅助。通过某种负载分担技术，将外部发送来的请求均匀分配到对称结构中的某一台服务器上，而接收到请求的服务器独立地回应客户的请求。均衡负载能够平均分配客户请求到服务器列阵，籍此提供快速获取重要数据，解决大量并发访问服务问题。这种群集技术可以用最少的投资获得接近于大型主机的性能。</span></div>
+<div><span style="font-family: STHeiti;"><br/></span></div>
+<div><span style="font-family: STHeiti;">  <b>网络负载均衡的优点</b></span></div>
+<div><span style="font-family: STHeiti;">  第一，网络负载均衡能将传入的请求传播到多达32台服务器上，即可以使用最多32台服务器共同分担对外的网络请求服务。网络负载均衡技术保证即使是在负载很重的情况下，服务器也能做出快速响应;</span></div>
+<div><span style="font-family: STHeiti;">  第二，网络负载均衡对外只需提供一个IP地址(或域名);</span></div>
+<div><span style="font-family: STHeiti;">  第三，当网络负载均衡中的一台或几台服务器不可用时，服务不会中断。网络负载均衡自动检测到服务器不可用时，能够迅速在剩余的服务器中重新指派客户机通讯。这项保护措施能够帮助你为关键的业务程序提供不中断的服务，并可以根据网络访问量的增加来相应地增加网络负载均衡服务器的数量;</span></div>
+<div><span style="font-family: STHeiti;">  第四，网络负载均衡可在普通的计算机上实现。</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

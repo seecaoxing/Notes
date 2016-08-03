@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="keywords" content="面试, 算法"/><meta name="altitude" content="442.9059753417969"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-04-20 07:54:01 +0000"/><meta name="latitude" content="34.15526684618947"/><meta name="longitude" content="108.894277240801"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-10-15 18:47:58 +0000"/><title>选排，冒泡（及优化）</title></head><body>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #78492a">#include</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #d12f1b">&lt;iostream&gt;</span></div>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">using</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">namespace</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #703daa">std</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;<br/>
+<br/></span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">/**<br/>
+ *</span> <span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">数组的最小值</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400"><br/>
+ *<br/>
+ *</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #004c14">@return</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">int</span> <span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">数组的键值</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400"><br/>
+ */</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">SelectMinKey(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">a[],</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">n,</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">i)<br/>
+{<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">k = i;<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">j=i+</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;j&lt; n; ++j) {<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">if</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(a[k] &gt; a[j])<br/>
+            k = j;<br/>
+    }<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">return</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">k;<br/>
+}</span></div>
+
+	
+	<div><span style="font-size: 11px;"><br/></span></div>
+
+	
+	<div><span style="color: rgb(79, 143, 0);"><span style="font-size: 11px;">//选择排序</span></span></div>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">void</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">SelectSort(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">a[],</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">n){<br/>
+   <br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">i =</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;i&lt;n;i++){<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">index =</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #31595d">SelectMinKey</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(a,n,i);<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">temp = a[i];<br/>
+        a[i] = a[index];<br/>
+        a[index] = temp;<br/>
+    }<br/>
+}</span></div>
+
+	
+	<div><span style="font-size: 11px;"><br/></span></div>
+
+	
+	<div><span style="color: rgb(0, 144, 81);"><span style="font-size: 11px;">//冒泡</span></span></div>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">void</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">bubbleSort(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">a[],</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">n){<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">i =</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">; i&lt; n; i++) {<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">j = 0; j &lt; n - i - 1; j++) {<br/>
+           </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">if</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(a[j] &gt; a[j+</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">])<br/>
+            {<br/>
+               </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">tmp = a[j];<br/>
+                a[i] = a[j];<br/>
+                a[j] = tmp;<br/>
+            }<br/>
+        }<br/>
+    }<br/>
+}</span></div>
+
+	
+	<div><span style="font-size: 11px;"><br/></span></div>
+
+	
+	<div><span style="font-size: 11px;"><span style="color: rgb(0, 144, 81);"><span style="font-size: 11px;"><span style="font-family: Menlo;">//冒泡优化</span></span></span></span></div>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">void</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">Bubble_1 (</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">r[],</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font-family: Menlo;"><span style="font-size: 11px;">n) {</span></span></div>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">i= n -</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">; </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">//</span><span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">初始时</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">,</span><span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">最后位置保持不变</span></div>
+
+	
+	<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">while</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">( i&gt;</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">) {<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pos=</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">//</span><span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">每趟开始时</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">,</span><span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">无记录交换</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">j=</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">; j&lt; i; j++)<br/>
+           </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">if</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(r[j]&gt; r[j+</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">]) {<br/>
+                pos= j;</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">//</span><span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">记录交换的位置</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+               </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">tmp = r[j]; r[j]=r[j+</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">];r[j+</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">]=tmp;<br/>
+            }<br/>
+        i= pos;</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #008400">//</span><span style="font: 11.0px 'Heiti SC Light'; font-variant-ligatures: no-common-ligatures; color: #008400">为下一趟排序作准备</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">i =</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;i&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">6</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;i++){<br/>
+           </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #703daa">cout</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">&lt;&lt;r[i]&lt;&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #d12f1b">","</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;<br/>
+        }<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #703daa">cout</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">&lt;&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #d12f1b">"----"</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">&lt;&lt;i&lt;&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #d12f1b">"\n"</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;<br/>
+    }<br/>
+}<br/>
+<br/></span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">main(){<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">a[</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">17</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">] = {</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">16</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">,</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">5</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">,</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">4</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">,</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">3</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">,</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">2</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">,</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">};<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #703daa">cout</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">&lt;&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #3d1d81">endl</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">&lt;&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #3d1d81">endl</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #31595d">SelectSort</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(a,</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">6</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">);<br/>
+   </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">for</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">(</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #bb2ca2">int</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">i =</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">0</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;i&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #272ad8">6</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">;i++){<br/>
+       </span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #703daa">cout</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">&lt;&lt;a[i]&lt;&lt;</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures; color: #d12f1b">","</span><span style="font-style: normal; font-variant: normal; font-weight: normal; line-height: normal;"><span style="font-size: 11px;"><span style="font-family: Menlo;">;<br/>
+    }</span></span></span></div>
+
+	
+	<div><span style="font-size: 11px;"><span style="font-family: Menlo;">}</span></span></div>
+
+
+
+
+
+
+</body></html>

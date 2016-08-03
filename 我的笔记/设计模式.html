@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="altitude" content="436.9096984863281"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-09-15 13:45:30 +0000"/><meta name="latitude" content="34.15699144842453"/><meta name="longitude" content="108.9012643324242"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-10-15 18:33:11 +0000"/><title>设计模式</title></head><body>
+
+	
+	
+	<div>
+
+		
+		
+		<div style="font-family: Courier, &quot;Courier New&quot;, monospace;"><b>1.单例模式</b></div>
+
+		
+		
+		<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">单例模式是一种常用的软件设计模式。在它的核心结构中只包含一个被称为单例类的特殊类。通过单例模式可以保证系统中一个类只有一个实例而且该实例易于外界访问，从而方便对实例个数的控制并节约系统资源。如果希望在系统中某个类的对象只能存在一个，单例模式是最好的解决方案。这里给出一个较好的写法</div>
+
+	
+	
+	</div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">public class Singleton {  </div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">    private static Singleton instance = new Singleton();  </div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">    private Singleton (){}  </div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">    public static Singleton getInstance() {  </div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">    return instance;  </div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">    }  </div>
+
+	
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">} </div>
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;"><br/></div>
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">设计模式在面试笔试中如果要现场写代码一般只要求写出单例模式，其他模式了解背过即可。</div>
+	
+	<div style="font-family: Courier, &quot;Courier New&quot;, monospace;">
+		
+		<p>http://blog.jobbole.com/74393/</p>
+	
+	</div>
+
+
+
+
+
+
+
+
+
+</body></html>

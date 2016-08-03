@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.4 (452969)"/><meta name="altitude" content="454.2824401855469"/><meta name="author" content="617218557@qq.com"/><meta name="created" content="2015-09-15 18:06:33 +0000"/><meta name="latitude" content="34.15383580262412"/><meta name="longitude" content="108.9017192275756"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-10-15 18:54:38 +0000"/><title>计算机网络</title></head><body>
+
+	<div><b>1.http状态码</b></div>
+
+	<div><span style="color: rgb(73, 73, 73); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">100-199 用于指定客户端应相应的某些动作。 </span>
+
+		<div><span style="color: rgb(73, 73, 73); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">200-299 用于表示请求成功。 </span></div>
+
+		<div><span style="color: rgb(73, 73, 73); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。 </span></div>
+
+		<div><span style="color: rgb(73, 73, 73); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">400-499 用于指出客户端的错误。 </span></div>
+
+	</div>
+
+	<div><span style="color: rgb(73, 73, 73); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">500-599 用于支持服务器错误。 </span></div>
+
+	<div><b><span style="background-color: rgb(255, 255, 255);"><span style="color: rgb(73, 73, 73);">2.</span></span><a style="color: rgb(0, 0, 0); text-decoration: none; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" href="http://blog.csdn.net/heyutao007/article/details/6588302"><b>socket 的通信过程</b></a></b></div>
+
+	<div><span style="font: 12.0px Helvetica"><img src="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.resources/2B440CBC-1BF7-42CA-BF74-140C4AB036A0.gif" height="458" width="487"/></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;"><br/></span></span></div>
+
+	<div><b><span style="font-family: Helvetica;">3.ping会用到哪个协议</span></b></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">使用的是ICMP协议，是“Internet Control Message Protocol”（Internet控制消息协议）的缩写，是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息。</span></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;"><br/></span></span></div>
+
+	<div><b><span style="font-family: Helvetica;">4.cookie，session区别</span></b></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">1、cookie数据存放在客户的浏览器上，session数据放在服务器上。</span></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗</span></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">   考虑到安全应当使用session。</span></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能</span></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">   考虑到减轻服务器性能方面，应当使用COOKIE。</span></span></div>
+
+	<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</span></span></div><div><span style="font-size: 12px;"><span style="font-family: Helvetica;"><br/></span></span></div><div>http以及安卓自己写一个http请求代码</div>
+
+
+
+</body></html>
